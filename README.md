@@ -1,4 +1,3 @@
-<img src="https://raw.githubusercontent.com/geerlingguy/mac-dev-playbook/master/files/Mac-Dev-Playbook-Logo.png" width="250" height="156" alt="Mac Dev Playbook Logo" />
 
 # Mac Development Ansible Playbook
 
@@ -15,13 +14,23 @@ This is a work in progress, and is mostly a means for me to document my current 
   - [osxc](https://github.com/osxc)
   - [MWGriffin/ansible-playbooks](https://github.com/MWGriffin/ansible-playbooks) (the original inspiration for this project)
 
-## Installation
+## Installation (Mac)
 
   1. Ensure Apple's command line tools are installed (`xcode-select --install` to launch the installer).
-  2. [Install Ansible](http://docs.ansible.com/intro_installation.html).
+     1. Optional run `softwareupdate --all --install --force` to update CommandlineTools from Software Update in System Preferences
+     2. If that doesn't show you an update run:
+        1. `sudo rm -rf /Library/Developer/CommandLineTools`
+        2. `sudo xcode-select --install`
+  2. [Install Ansible](http://docs.ansible.com/intro_installation.html) with pip as user
+     1. Get pip `$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py` if its not on shell by default
+     2. Run pip install `$ python get-pip.py --user` (user install?)
+     3. Install ansible via pip `$ python -m pip install --user ansible`
+     4. TODO `$ python -m pip install --user paramiko`
+     5. TODO ansible is missing on the path `export PATH=\"`python3 -m site --user-base`/bin:$PATH\"`
   3. Clone this repository to your local drive.
+     1. `git clone `
   4. Run `$ ansible-galaxy install -r requirements.yml` inside this directory to install required Ansible roles.
-  5. Run `ansible-playbook main.yml -i inventory --ask-become-pass` inside this directory. Enter your account password when prompted.
+  5. Run `$ ansible-playbook main.yml -i inventory --ask-become-pass` inside this directory. Enter your account password when prompted.
 
 > Note: If some Homebrew commands fail, you might need to agree to Xcode's license or fix some other Brew issue. Run `brew doctor` to see if this is the case.
 
@@ -60,27 +69,29 @@ You can override any of the defaults configured in `default.config.yml` by creat
       - cowsay
       - git
       - go
-    
-    mas_installed_apps:
-      - { id: 443987910, name: "1Password" }
-      - { id: 498486288, name: "Quick Resizer" }
-      - { id: 557168941, name: "Tweetbot" }
-      - { id: 497799835, name: "Xcode" }
-    
-    composer_packages:
-      - name: hirak/prestissimo
-      - name: drush/drush
-        version: '^8.1'
-    
-    gem_packages:
-      - name: bundler
-        state: latest
-    
-    npm_packages:
-      - name: webpack
-    
-    pip_packages:
-      - name: mkdocs
+      - java
+      - maven
+
+#   mas_installed_apps:
+#     - { id: 443987910, name: "1Password" }
+#     - { id: 498486288, name: "Quick Resizer" }
+#     - { id: 557168941, name: "Tweetbot" }
+#     - { id: 497799835, name: "Xcode" }
+#   
+#   composer_packages:
+#     - name: hirak/prestissimo
+#     - name: drush/drush
+#       version: '^8.1'
+#   
+#   gem_packages:
+#     - name: bundler
+#       state: latest
+#   
+#   npm_packages:
+#     - name: webpack
+#   
+#   pip_packages:
+#     - name: mkdocs
 
 Any variable can be overridden in `config.yml`; see the supporting roles' documentation for a complete list of available variables.
 
@@ -140,6 +151,11 @@ Finally, there are a few other preferences and settings added on for various app
 
 ## Future additions
 
+`Sharing is Kehring` have a simple dev shell to share
+
+- Make it happen on windows
+- Make it happen on linux
+
 ### Things that still need to be done manually
 
 It's my hope that I can get the rest of these things wrapped up into Ansible playbooks soon, but for now, these steps need to be completed manually (assuming you already have Xcode and Ansible installed, and have run this playbook).
@@ -178,5 +194,5 @@ Check out [Ansible for DevOps](https://www.ansiblefordevops.com/), which teaches
 
 [Jeff Geerling](https://www.jeffgeerling.com/), 2014 (originally inspired by [MWGriffin/ansible-playbooks](https://github.com/MWGriffin/ansible-playbooks)).
 
-[badge-gh-actions]: https://github.com/geerlingguy/mac-dev-playbook/workflows/CI/badge.svg?event=push
-[link-gh-actions]: https://github.com/geerlingguy/mac-dev-playbook/actions?query=workflow%3ACI
+[badge-gh-actions]: https://github.com/nliebelt/mac-dev-playbook/workflows/CI/badge.svg?event=push
+[link-gh-actions]: https://github.com/nliebelt/mac-dev-playbook/actions?query=workflow%3ACI
