@@ -21,15 +21,12 @@ This is a work in progress, and is mostly a means for me to document my current 
      2. If that doesn't show you an update run:
         1. `sudo rm -rf /Library/Developer/CommandLineTools`
         2. `sudo xcode-select --install`
-  2. [Install Ansible](http://docs.ansible.com/intro_installation.html) with pip as user
-     1. Get pip `$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py` if its not on shell by default
-     2. Run pip install `$ python get-pip.py --user` (user install?)
-     3. Install ansible via pip `$ python -m pip install --user ansible`
-     4. TODO `$ python -m pip install --user paramiko`
-     5. TODO ansible is missing on the path `export PATH=\"`python3 -m site --user-base`/bin:$PATH\"`
-  3. Clone this repository to your local drive.
-     1. `git clone `
-  4. Run `$ ansible-galaxy install -r requirements.yml` inside this directory to install required Ansible roles.
+  2. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-macos) with pip as user
+     1. Install ansible via pip `$ pip install --user ansible`
+     2. Add ansible to path env if missing e.g.  `$ export PATH=$(python3 -m site --user-base)/bin:$PATH`
+  3. Clone this repository to your local drive if haven't already.
+     1. `git clone https://github.com/nliebelt/mac-dev-playbook`
+  4. Run `$ ansible-galaxy install -r requirements.yml --ignore-certs` inside this directory to install required Ansible roles.
   5. Run `$ ansible-playbook main.yml -i inventory --ask-become-pass` inside this directory. Enter your account password when prompted.
 
 > Note: If some Homebrew commands fail, you might need to agree to Xcode's license or fix some other Brew issue. Run `brew doctor` to see if this is the case.
